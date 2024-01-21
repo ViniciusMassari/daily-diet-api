@@ -1,5 +1,5 @@
 {
-  "name": "Find-A-Friend-Api",
+  "name": "daily-diet-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,7 @@
     "test:watch": "vitest watch --dir src/use-cases",
     "test:coverage": "vitest --coverage",
     "test:ui": "vitest --ui",
-    "test:e2e": "vitest run --dir src/http",
+    "test:e2e": "vitest run --dir src/http/controllers",
     "build": "tsup src --out-dir build",
     "lint": "eslint src -e .ts --fix"
   },
@@ -25,6 +25,7 @@
     "@typescript-eslint/parser": "6.19.0",
     "@vitest/ui": "1.2.1",
     "eslint": "8.56.0",
+    "npm-run-all": "4.1.5",
     "prisma": "5.8.1",
     "supertest": "^6.3.4",
     "tsup": "^8.0.1",

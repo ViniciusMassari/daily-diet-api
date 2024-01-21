@@ -1,18 +1,19 @@
 import { InvalidData } from '@/use-cases/errors/InvalidData';
-import { makeRegisterUserUsecase } from '@/use-cases/factories/make-register-user-usecase';
+import { makeAuthenticateUserUsecase } from '@/use-cases/factories/make-authenticate-user-usecase';
+
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
-export async function register(req: FastifyRequest, rep: FastifyReply) {
-  const registerBodySchema = z.object({
+export async function authenticate(req: FastifyRequest, rep: FastifyReply) {
+  const authenticateBodySchema = z.object({
     email: z.string().email(),
     password: z.string(),
   });
 
-  const { email, password } = registerBodySchema.parse(req.body);
+  const { email, password } = authenticateBodySchema.parse(req.body);
   try {
-    const registerUserUseCase = makeRegisterUserUsecase();
-    const { user } = await registerUserUseCase.execute({ email, password });
+    const authenticateUserUseCase = makeAuthenticateUserUsecase();
+    const { user } = await authenticateUserUseCase.execute({ email, password });
     const token = await rep.jwtSign(
       {},
       {
