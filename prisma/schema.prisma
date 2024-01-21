@@ -14,7 +14,7 @@ model User {
   id                 String   @id @default(uuid())
   name               String
   lastname           String
-  email              String
+  email              String   @unique
   passwordHash       String   @map("password_hash")
   inDietSequence     Int?     @default(0)
   bestInDietSequence Int?     @default(0) @map("best_in_diet_sequence")
