@@ -12,5 +12,13 @@ export async function deleteUser(req: FastifyRequest, rep: FastifyReply) {
     rep.status(401).send({ message: 'You are not allowed to delete' });
   }
 
-
+  try {
+    const deleteUserUseCase = makeDeleteUserUseCase();
+    await deleteUserUseCase.execute({ id });
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      rep.status(403).send({ message: error.message });
+    }
+  }
+  return rep.status(200).send();
 }
