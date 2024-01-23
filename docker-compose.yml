@@ -9,3 +9,11 @@ services:
       - POSTGRESQL_USERNAME=docker
       - POSTGRESQL_PASSWORD=docker
       - POSTGRESQL_DATABASE=findAFriend
+  test-db:
+    image: postgres
+    ports:
+      - 5435:5435
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=findAFriend

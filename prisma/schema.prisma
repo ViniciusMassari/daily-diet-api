@@ -32,6 +32,6 @@ model Meal {
   createdAt   DateTime @default(now()) @map("created_At")
   updated_At  DateTime @updatedAt @map("updated_At")
 
-  User   User?   @relation(fields: [userId], references: [id])
+  User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String? @map("user_id")
 }

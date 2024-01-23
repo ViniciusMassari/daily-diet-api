@@ -3,7 +3,7 @@ import { UserRepository } from '../user-repository';
 import { prisma } from '@/lib/prisma';
 
 export class PrismaUserRepository
-  implements UserRepository<Prisma.UserCreateInput, User>
+  implements UserRepository<Prisma.UserCreateInput>
 {
   async createUser(props: Prisma.UserCreateInput): Promise<User> {
     const user = await prisma.user.create({ data: { ...props } });
@@ -26,9 +26,9 @@ export class PrismaUserRepository
     return updatedUser;
   }
 
-  async deleteUser(id: string): Promise<User> {
+  async deleteUser(id: string): Promise<void> {
     const user = await prisma.user.delete({ where: { id } });
-    return user;
+    return;
   }
 
   async findByEmail(email: string): Promise<User | null> {

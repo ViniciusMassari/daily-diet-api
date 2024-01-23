@@ -10,7 +10,9 @@ export const app = fastify({
 });
 
 app.register(fastifyCookie);
-app.register(usersRoutes);
+app.register(usersRoutes, {
+  prefix: '/user',
+});
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,

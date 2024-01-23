@@ -1,5 +1,8 @@
 node_modules
-.env
+
 build
 coverage
 instrucoes.md
+
+.env
+.env.test
