@@ -1,0 +1,10 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  daily-diet-api:
+    specifier: link:C:/Users/stone/OneDrive/Área de Trabalho/projetos/dailyDietAPI
+    version: link:../..
