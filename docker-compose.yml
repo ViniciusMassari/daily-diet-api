@@ -1,14 +1,14 @@
 version: "3"
 
 services:
-  find-a-friend-api:
+  daily-diet-api:
     image: bitnami/postgresql
     ports:
       - 5432:5432
     environment:
       - POSTGRESQL_USERNAME=docker
       - POSTGRESQL_PASSWORD=docker
-      - POSTGRESQL_DATABASE=findAFriend
+      - POSTGRESQL_DATABASE=dailyDiet
   test-db:
     image: postgres
     ports:
@@ -16,4 +16,4 @@ services:
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=findAFriend
+      - POSTGRES_DB=dailyDiet

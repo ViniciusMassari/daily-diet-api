@@ -5,16 +5,13 @@
   "main": "index.js",
   "scripts": {
     "prisma:dev:deploy": "prisma migrate deploy",
-    "db:dev:rm": "docker compose rm find-a-friend-api -s -f -v",
-    "db:dev:up": "docker compose up find-a-friend-api -d",
+    "db:dev:rm": "docker compose rm daily-diet-api -s -f -v",
+    "db:dev:up": "docker compose up daily-diet-api -d",
     "db:dev:restart": "pnpm db:dev:rm && pnpm db:dev:up && sleep 1 && pnpm prisma:dev:deploy",
-
     "prisma:test:deploy": "dotenv -e .env.test -- prisma migrate deploy",
     "db:test:rm": "docker compose rm test-db -s -f -v",
     "db:test:up": "docker compose up test-db -d",
     "db:test:restart": "pnpm db:test:rm && pnpm db:test:up && sleep 1 && pnpm prisma:test:deploy",
-
-
     "start:dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
     "test": "vitest run --dir src/use-cases",
@@ -51,6 +48,7 @@
     "@prisma/client": "5.8.1",
     "bcryptjs": "2.4.3",
     "dotenv": "16.3.1",
+    "dotenv-cli": "7.3.0",
     "fastify": "^4.25.2",
     "zod": "^3.22.4"
   }

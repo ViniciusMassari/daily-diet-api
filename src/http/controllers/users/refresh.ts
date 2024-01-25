@@ -1,4 +1,3 @@
-// refresh.ts
 import { FastifyReply, FastifyRequest } from 'fastify';
 
 export async function refresh(req: FastifyRequest, rep: FastifyReply) {
