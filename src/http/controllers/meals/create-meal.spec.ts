@@ -43,5 +43,6 @@ describe('Create meal test', async () => {
       .set('Authorization', `Bearer ${token}`)
       .send(mealInfo);
     expect(response.statusCode).toBe(201);
+    expect(response.body.meal).toBeDefined();
   });
 });

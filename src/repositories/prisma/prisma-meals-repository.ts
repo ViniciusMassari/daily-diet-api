@@ -17,7 +17,7 @@ export class PrismaMealsRepository implements MealsRepository {
   async updateMeal(
     mealId: string,
     props: Prisma.MealUpdateInput
-  ): Promise<Meal | null> {
+  ): Promise<Meal> {
     return await prisma.meal.update({
       where: { id: mealId },
       data: { ...props },

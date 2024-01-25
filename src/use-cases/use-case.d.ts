@@ -1,3 +1,3 @@
 export interface UseCase<Input, Output> {
-  execute(props: Input): Promise<Output> | Output;
+  execute(props: Input, ...props): Promise<Output> | Output;
 }
