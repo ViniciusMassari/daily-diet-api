@@ -1,5 +1,5 @@
-import { Prisma } from '@prisma/client';
-import { UseCase } from './use-case';
+import { Prisma, User } from '@prisma/client';
+import { UseCase } from '../use-case';
 import { UserRepository } from '@/repositories/user-repository';
 
 interface Input {
@@ -9,7 +9,9 @@ interface Input {
 type Output = void;
 
 export class DeleteUserUseCase implements UseCase<Input, Output> {
-  constructor(private userRepository: UserRepository<Prisma.UserCreateInput>) {}
+  constructor(
+    private userRepository: UserRepository<Prisma.UserCreateInput, User>
+  ) {}
   async execute(props: Input): Promise<Output> {
     const user = await this.userRepository.findById(props.id);
     if (!user) {

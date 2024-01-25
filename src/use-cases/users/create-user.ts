@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Prisma, User } from '@prisma/client';
-import { UseCase } from './use-case';
+import { UseCase } from '../use-case';
 import { hash } from 'bcryptjs';
-import { z } from 'zod';
 import { UserRepository } from '@/repositories/user-repository';
-import { UserAlreadyExists } from './errors/UserAlreadyExist';
+import { UserAlreadyExists } from '../errors/UserAlreadyExist';
 
 type Input = {
   email: string;
@@ -17,7 +15,7 @@ type Output = User;
 
 export class CreateUserUseCase implements UseCase<Input, User> {
   constructor(
-    private userRepository: UserRepository<Prisma.UserCreateInput, Output>
+    private userRepository: UserRepository<Prisma.UserCreateInput, User>
   ) {}
   async execute(props: Input): Promise<Output> {
     const { email, name, lastname, password } = props;

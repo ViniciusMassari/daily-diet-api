@@ -1,3 +1,3 @@
 import { describe } from 'vitest';
 
-describe('update meal', async () => {});
+describe.todo('update meal', async () => {});

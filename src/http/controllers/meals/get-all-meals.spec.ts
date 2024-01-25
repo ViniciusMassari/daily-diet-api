@@ -1,3 +1,3 @@
 import { describe } from 'vitest';
 
-describe('get all meals test', async () => {});
+describe.todo('get all meals test', async () => {});
