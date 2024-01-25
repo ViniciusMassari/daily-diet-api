@@ -4,6 +4,7 @@ import { env } from './env';
 import fastifyJwt from '@fastify/jwt';
 import fastifyCookie from '@fastify/cookie';
 import { usersRoutes } from '@/http/controllers/users/routes';
+import { mealsRoutes } from './http/controllers/meals/routes';
 
 export const app = fastify({
   logger: true,
@@ -12,6 +13,10 @@ export const app = fastify({
 app.register(fastifyCookie);
 app.register(usersRoutes, {
   prefix: '/user',
+});
+
+app.register(mealsRoutes, {
+  prefix: '/meal',
 });
 
 app.register(fastifyJwt, {
