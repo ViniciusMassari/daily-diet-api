@@ -1,5 +1,5 @@
 class NotFoundError extends Error {
-  constructor() {
-    super('data was not found');
+  constructor(message?: string) {
+    super(message ?? 'Data was not found');
   }
 }
