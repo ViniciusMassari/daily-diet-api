@@ -3,6 +3,7 @@ import { UseCase } from '../use-case';
 import { InvalidData } from '../errors/InvalidData';
 import { compare } from 'bcryptjs';
 import { User } from '@prisma/client';
+import { UserRepository } from '@/repositories/user-repository';
 
 interface Input {
   email: string;
@@ -14,7 +15,7 @@ interface Output {
 }
 
 export class AuthenticateUseCase implements UseCase<Input, Output> {
-  constructor(private usersRepository: PrismaUserRepository) {}
+  constructor(private usersRepository: UserRepository) {}
   async execute(props: Input): Promise<Output> {
     const { email, password } = props;
     const user = await this.usersRepository.findByEmail(email);

@@ -7,7 +7,7 @@ describe('Create meal test', async () => {
   const mealInfo = {
     name: 'meal name',
     description: 'meal description',
-    isInDiet: false,
+    isInDiet: true,
   };
   const userTestInfo = {
     name: 'testName',
@@ -44,5 +44,7 @@ describe('Create meal test', async () => {
       .send(mealInfo);
     expect(response.statusCode).toBe(201);
     expect(response.body.meal).toBeDefined();
+
+    expect(response.body.updatedUser.inDietSequence).toBe(1);
   });
 });

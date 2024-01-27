@@ -14,12 +14,12 @@ type Input = {
 type Output = User;
 
 export class CreateUserUseCase implements UseCase<Input, User> {
-  constructor(
-    private userRepository: UserRepository<Prisma.UserCreateInput, User>
-  ) {}
+  constructor(private userRepository: UserRepository) {}
   async execute(props: Input): Promise<Output> {
     const { email, name, lastname, password } = props;
-    const doesUserExist = await this.userRepository.findByEmail(email);
+    const doesUserExist: User | null = await this.userRepository.findByEmail(
+      email
+    );
 
     if (doesUserExist) {
       throw new UserAlreadyExists();

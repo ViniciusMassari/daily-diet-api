@@ -9,11 +9,9 @@ interface Input {
 type Output = void;
 
 export class DeleteUserUseCase implements UseCase<Input, Output> {
-  constructor(
-    private userRepository: UserRepository<Prisma.UserCreateInput, User>
-  ) {}
+  constructor(private userRepository: UserRepository) {}
   async execute(props: Input): Promise<Output> {
-    const user = await this.userRepository.findById(props.id);
+    const user: User = await this.userRepository.findById(props.id);
     if (!user) {
       throw new NotFoundError();
     }
