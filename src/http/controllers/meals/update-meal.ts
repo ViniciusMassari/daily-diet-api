@@ -1,9 +1,11 @@
+import { NotAllowedError } from '@/use-cases/errors/NotAllowedError';
+import { NotFoundError } from '@/use-cases/errors/NotFound';
 import { makeUpdateMealUseCase } from '@/use-cases/factories/make-update-meal-use-case';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
 export async function updateMeal(req: FastifyRequest, rep: FastifyReply) {
-  const createMealBodySchema = z.object({
+  const updateteMealBodySchema = z.object({
     name: z.string(),
     description: z.string(),
   });
@@ -14,15 +16,22 @@ export async function updateMeal(req: FastifyRequest, rep: FastifyReply) {
 
   const { id } = mealIdBodySchema.parse(req.params);
 
-  const { name, description } = createMealBodySchema.parse(req.body);
+  const { name, description } = updateteMealBodySchema.parse(req.body);
 
   try {
-    const createMealUseCase = makeUpdateMealUseCase();
-    const meal = await createMealUseCase.execute({ name, description }, id);
+    const updateMealUseCase = makeUpdateMealUseCase();
+    const meal = await updateMealUseCase.execute(
+      { name, description },
+      id,
+      req.user.sub
+    );
     rep.status(201).send({ meal });
   } catch (error) {
     if (error instanceof NotFoundError) {
       rep.status(400).send({ message: error.message });
+    }
+    if (error instanceof NotAllowedError) {
+      rep.status(403).send({ message: error.message });
     }
     rep.status(400).send({ message: 'An error ocurred, try again' });
   }

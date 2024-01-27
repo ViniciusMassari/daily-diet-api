@@ -1,6 +1,8 @@
 import { Meal } from '@prisma/client';
 import { UseCase } from '../use-case';
 import { MealsRepository } from '@/repositories/meals-repository';
+import { NotFoundError } from '../errors/NotFound';
+import { NotAllowedError } from '../errors/NotAllowedError';
 
 interface Input {
   id: string;

@@ -1,3 +1,5 @@
+import { NotAllowedError } from '@/use-cases/errors/NotAllowedError';
+import { NotFoundError } from '@/use-cases/errors/NotFound';
 import { makeGetMealUseCase } from '@/use-cases/factories/make-get-meal-usecase';
 import { Meal } from '@prisma/client';
 import { FastifyReply, FastifyRequest } from 'fastify';
