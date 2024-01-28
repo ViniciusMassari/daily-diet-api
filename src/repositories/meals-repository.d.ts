@@ -3,4 +3,5 @@ export interface MealsRepository {
   getMealById(id: string): Promise<Output | null>;
   updateMeal(mealId: string, props: Meal): Promise<Output | null>;
   getAllMeals(userId: string): Promise<Output[] | null>;
+  deleteMeal(mealId: string): Promise<void>;
 }

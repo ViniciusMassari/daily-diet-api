@@ -26,4 +26,8 @@ export class PrismaMealsRepository implements MealsRepository {
   async getAllMeals(userId: string): Promise<Meal[] | null> {
     return await prisma.meal.findMany({ where: { userId } });
   }
+
+  async deleteMeal(mealId: string): Promise<void> {
+    await prisma.meal.delete({ where: { id: mealId } });
+  }
 }

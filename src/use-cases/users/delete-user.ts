@@ -1,6 +1,7 @@
-import { Prisma, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { UseCase } from '../use-case';
 import { UserRepository } from '@/repositories/user-repository';
+import { NotFoundError } from '../errors/NotFound';
 
 interface Input {
   id: string;

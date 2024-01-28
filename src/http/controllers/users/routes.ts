@@ -4,10 +4,12 @@ import { refresh } from './refresh';
 import { authenticate } from './authenticate';
 import { deleteUser } from './delete-user';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
+import { metrics } from './metrics';
 
 export async function usersRoutes(app: FastifyInstance) {
   app.delete('/delete-profile/:id', { onRequest: [verifyJwt] }, deleteUser);
   app.post('/', createUser);
   app.patch('/token/refresh', refresh);
   app.post('/authenticate', authenticate);
+  app.post('/metrics', metrics);
 }

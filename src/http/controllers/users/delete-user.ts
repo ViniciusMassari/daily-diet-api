@@ -1,3 +1,4 @@
+import { NotFoundError } from '@/use-cases/errors/NotFound';
 import { makeDeleteUserUseCase } from '@/use-cases/factories/make-delete-user-usecase';
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { z } from 'zod';
