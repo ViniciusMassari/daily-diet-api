@@ -23,7 +23,7 @@ export async function createMeal(req: FastifyRequest, rep: FastifyReply) {
     rep.status(201).send(meal);
   } catch (error) {
     if (error instanceof NotFoundError) {
-      rep.status(403).send({ message: error.message });
+      rep.status(404).send({ message: error.message });
     }
     rep.status(400).send({ message: 'An error ocurred, try again' });
   }
