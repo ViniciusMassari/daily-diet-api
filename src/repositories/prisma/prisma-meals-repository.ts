@@ -30,4 +30,38 @@ export class PrismaMealsRepository implements MealsRepository {
   async deleteMeal(mealId: string): Promise<void> {
     await prisma.meal.delete({ where: { id: mealId } });
   }
+
+  async metrics(userId: string) {
+    const notInDietMeals = await prisma.meal
+      .findMany({
+        where: { userId, isInDiet: false },
+      })
+      .then((meals) => meals.length);
+    const inDietMeals = await prisma.meal
+      .findMany({
+        where: { userId, isInDiet: true },
+      })
+      .then((meals) => meals.length);
+    const bestInDietSequence = await prisma.meal
+      .findFirst({
+        where: { id: userId },
+        include: { User: true },
+      })
+      .then((meal) => {
+        meal?.User?.bestInDietSequence;
+      });
+
+    const totalOfRegisteredMeals = await prisma.meal
+      .findMany({
+        where: { userId },
+      })
+      .then((meals) => meals.length);
+
+    return {
+      bestInDietSequence,
+      inDietMeals,
+      notInDietMeals,
+      totalOfRegisteredMeals,
+    };
+  }
 }

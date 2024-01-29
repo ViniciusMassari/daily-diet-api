@@ -11,5 +11,5 @@ export async function usersRoutes(app: FastifyInstance) {
   app.post('/', createUser);
   app.patch('/token/refresh', refresh);
   app.post('/authenticate', authenticate);
-  app.post('/metrics', metrics);
+  app.get('/metrics/:userId', { onRequest: verifyJwt }, metrics);
 }
