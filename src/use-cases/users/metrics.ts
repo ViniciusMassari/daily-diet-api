@@ -3,6 +3,7 @@ import { UseCase } from '../use-case';
 import { User } from '@prisma/client';
 import { MealsRepository } from '@/repositories/meals-repository';
 import { NotAllowedError } from '../errors/NotAllowedError';
+import { NotFoundError } from '../errors/NotFound';
 
 interface Metrics {
   bestInDietSequence: number;
@@ -20,13 +21,13 @@ interface Output {
 }
 
 export class MetricsUseCase implements UseCase<Input, Output> {
-  constructor(private mealsRepository: MealsRepository) {}
+  constructor(private usersRepository: UserRepository) {}
   async execute({ userId, loggedUser }: Input): Promise<Output> {
-    if (userId !== loggedUser) {
-      throw new NotAllowedError();
-    }
+    if (userId !== loggedUser) throw new NotAllowedError();
 
-    const metrics: Metrics = await this.mealsRepository.metrics(userId);
+    const metrics: Metrics = await this.usersRepository.metrics(userId);
+
+    if (!metrics) throw new NotFoundError();
 
     return { metrics };
   }

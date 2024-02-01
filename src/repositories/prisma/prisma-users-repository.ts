@@ -3,6 +3,12 @@ import { UserRepository } from '../user-repository';
 import { prisma } from '@/lib/prisma';
 import { NotFoundError } from '@/use-cases/errors/NotFound';
 
+export interface Metrics {
+  inDietMeals: number;
+  nonInDietMeals: number;
+  totalRegisteredMeals: number;
+}
+
 export class PrismaUserRepository implements UserRepository {
   async createUser(props: Prisma.UserCreateInput): Promise<User> {
     const user = await prisma.user.create({ data: { ...props } });
@@ -65,5 +71,20 @@ export class PrismaUserRepository implements UserRepository {
     return user;
   }
 
- 
+  async metrics(userId: string): Promise<Metrics | null> {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      include: { meals: true },
+    });
+    if (!user) return null;
+    const inDietMeals = user?.meals.filter(
+      (meal) => meal.isInDiet === true
+    ).length;
+    const nonInDietMeals = user?.meals.filter(
+      (meal) => meal.isInDiet === false
+    ).length;
+    const totalRegisteredMeals = user?.meals.length;
+
+    return { inDietMeals, nonInDietMeals, totalRegisteredMeals };
+  }
 }

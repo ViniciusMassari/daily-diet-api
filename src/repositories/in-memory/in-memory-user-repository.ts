@@ -1,5 +1,6 @@
 import { randomUUID } from 'crypto';
 import { UserRepository } from '../user-repository';
+import { Metrics } from '../prisma/prisma-users-repository';
 
 interface User {
   id?: string;
@@ -13,6 +14,10 @@ interface User {
 }
 
 export class InMemoryUserRepository implements UserRepository {
+  metrics(userId: string): Promise<Metrics> {
+    throw new Error('Method not implemented.');
+  }
+
   items: Array<User> = [];
   async createUser(props: User): Promise<void> {
     const user = {

@@ -4,4 +4,5 @@ export interface UserRepository {
   deleteUser(id: string): Promise<void>;
   findByEmail(email: string): Promise<Output | null>;
   updateUserInDietSequence(userId: string, isInDiet: boolean): Promise<Output>;
+  metrics(userId: string): Promise<Output | null>;
 }

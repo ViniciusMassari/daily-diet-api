@@ -45,17 +45,5 @@ export class InMemoryMealRepository implements MealsRepository {
     this.items = this.items.filter((item) => item.id === mealId);
     return;
   }
-  async metrics(userId: string): Promise<Metrics> {
-    const inDietMeals = this.items.filter(
-      (item) => item.userId === userId && item.isInDiet === true
-    ).length;
-    const nonInDietMeals = this.items.filter(
-      (item) => item.userId === userId && item.isInDiet === false
-    ).length;
-    const totalRegisteredMeals = this.items.filter(
-      (item) => item.userId === userId
-    ).length;
 
-    return { inDietMeals, nonInDietMeals, totalRegisteredMeals };
-  }
 }
