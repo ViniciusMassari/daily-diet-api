@@ -2,6 +2,7 @@ import { Meal, User } from '@prisma/client';
 import { UseCase } from '../use-case';
 import { MealsRepository } from '@/repositories/meals-repository';
 import { UserRepository } from '@/repositories/user-repository';
+import { NotFoundError } from '../errors/NotFound';
 
 interface Input {
   name: string;
@@ -20,6 +21,8 @@ export class CreateMealUseCase implements UseCase<Input, Output> {
   ) {}
   async execute(props: Input): Promise<Output> {
     const { name, isInDiet, description, userId } = props;
+    const user = await this.usersRepository.findById(userId);
+    if (!user) throw new NotFoundError();
     const updatedUser: User =
       await this.usersRepository.updateUserInDietSequence(userId, isInDiet);
 
