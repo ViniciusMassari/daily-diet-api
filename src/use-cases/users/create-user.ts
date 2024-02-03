@@ -1,4 +1,4 @@
-import { Prisma, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import { UseCase } from '../use-case';
 import { hash } from 'bcryptjs';
 import { UserRepository } from '@/repositories/user-repository';

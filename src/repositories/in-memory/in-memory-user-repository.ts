@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 import { UserRepository } from '../user-repository';
 import { Meal } from './in-memory-meal-repository';
 
-interface User {
+export interface User {
   id?: string;
   name: string;
   lastname: string;
@@ -21,14 +21,14 @@ interface Metrics {
 
 export class InMemoryUserRepository implements UserRepository {
   items: Array<User> = [];
-  async createUser(props: User): Promise<void> {
+  async createUser(props: User): Promise<User> {
     const user = {
       id: props.id ?? randomUUID(),
       createdAt: props.createdAt ?? new Date(),
       ...props,
     };
     this.items.push(user);
-    return;
+    return user;
   }
   async findById(id: string): Promise<User | undefined> {
     const filteredUser = this.items.find((item) => item.id === id);
@@ -39,7 +39,9 @@ export class InMemoryUserRepository implements UserRepository {
     return;
   }
   async findByEmail(email: string): Promise<User | undefined> {
-    const user = this.items.find((item) => item.email === email);
+    const user: User | undefined = this.items.find(
+      (item) => item.email === email
+    );
     return user;
   }
   async updateUserInDietSequence(
