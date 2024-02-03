@@ -12,10 +12,11 @@ export async function getMeal(req: FastifyRequest, rep: FastifyReply) {
   const { id } = getMealBodySchema.parse(req.params);
   try {
     const getMealUseCase = makeGetMealUseCase();
-    const meal: Meal = await getMealUseCase.execute({
-      id,
-      userId: req.user.sub,
+    const meal: Meal | undefined = await getMealUseCase.execute({
+      mealId: id,
     });
+    if (meal && meal.userId !== req.user.sub)
+      rep.status(403).send({ message: 'Not allowed to access that info' });
     rep.status(200).send({ meal });
   } catch (error) {
     if (error instanceof NotAllowedError) {

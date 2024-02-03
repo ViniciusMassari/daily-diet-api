@@ -5,24 +5,19 @@ import { NotFoundError } from '../errors/NotFound';
 import { NotAllowedError } from '../errors/NotAllowedError';
 
 interface Input {
-  id: string;
-  userId: string;
+  mealId: string;
 }
-type Output = Meal;
+type Output = Meal | undefined;
 
 export class GetMealUseCase implements UseCase<Input, Output> {
   constructor(private mealsRepository: MealsRepository) {}
-  async execute(props: Input): Promise<Meal> {
-    const { userId, id } = props;
-    const meal: Meal | null = await this.mealsRepository.getMealById(id);
+  async execute(props: Input): Promise<Meal | undefined> {
+    const { mealId } = props;
+    const meal: Meal | null = await this.mealsRepository.getMealById(mealId);
     if (!meal) {
-      throw new NotFoundError(
-        'Could not find a meal with the given information'
-      );
+      return undefined;
     }
-    if (meal.userId !== userId) {
-      throw new NotAllowedError();
-    }
+
     return meal;
   }
 }
