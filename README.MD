@@ -6,6 +6,8 @@
     * [Pre Requisitos](#pre-requisitos)
 * [Testes](#testes)
 * [Tecnologias](#tecnologias)
+* [Autor](#autor)
+
 <h4 align="center"> 
     👍🏻 Finalizado !
 </h4>
