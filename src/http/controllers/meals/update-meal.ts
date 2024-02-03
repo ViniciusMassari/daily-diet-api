@@ -20,11 +20,9 @@ export async function updateMeal(req: FastifyRequest, rep: FastifyReply) {
 
   try {
     const updateMealUseCase = makeUpdateMealUseCase();
-    const meal = await updateMealUseCase.execute(
-      { name, description },
-      id,
-      req.user.sub
-    );
+    const meal = await updateMealUseCase.execute({ name, description }, id);
+    if (meal.userId !== req.user.sub)
+      rep.status(403).send({ message: 'Not allowed to see that info' });
     rep.status(201).send({ meal });
   } catch (error) {
     if (error instanceof NotFoundError) {

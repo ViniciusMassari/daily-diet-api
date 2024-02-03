@@ -3,24 +3,21 @@ import { UseCase } from '../use-case';
 import { Meal, Prisma } from '@prisma/client';
 import { NotFoundError } from '../errors/NotFound';
 import { NotAllowedError } from '../errors/NotAllowedError';
+import { MealsRepository } from '@/repositories/meals-repository';
 
 type Input = Prisma.MealUpdateWithoutUserInput;
 type Output = Meal;
 export class UpdateMealUseCase implements UseCase<Input, Output> {
-  constructor(private mealsRepository: PrismaMealsRepository) {}
+  constructor(private mealsRepository: MealsRepository) {}
   async execute(
     props: Prisma.MealUpdateWithoutUserInput,
-    mealId: string,
-    userId: string
+    mealId: string
   ): Promise<Meal> {
-    const meal = await this.mealsRepository.getMealById(mealId);
-    if (meal?.userId !== userId) {
-      throw new NotAllowedError();
-    }
-    const updatedMeal = await this.mealsRepository.updateMeal(mealId, props);
-    if (!updatedMeal) {
-      throw new NotFoundError();
-    }
+    const meal: Meal | undefined = await this.mealsRepository.getMealById(
+      mealId
+    );
+    if (!meal) throw new NotFoundError();
+    const updatedMeal = await this.mealsRepository.updateMeal(meal.id, props);
     return updatedMeal;
   }
 }

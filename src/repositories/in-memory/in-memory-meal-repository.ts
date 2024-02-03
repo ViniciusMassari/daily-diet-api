@@ -28,7 +28,7 @@ export class InMemoryMealRepository implements MealsRepository {
   async updateMeal(mealId: string, props: Meal): Promise<Meal | undefined> {
     let meal = this.items.find((item) => item.id === mealId);
     if (!meal) return undefined;
-    meal = { ...props };
+    meal = { ...meal, ...props };
     return meal;
   }
   async getAllMeals(userId: string): Promise<Meal[]> {
