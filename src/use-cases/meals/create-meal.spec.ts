@@ -38,7 +38,7 @@ describe('create user unit tests', () => {
     expect(createdMeal).toBeDefined();
   });
 
-  it('Should return an error', async () => {
+  it('Should return an error if user does not exist', async () => {
     expect(
       async () => await sut.execute({ ...meal, userId: mockId })
     ).rejects.toBeInstanceOf(NotFoundError);

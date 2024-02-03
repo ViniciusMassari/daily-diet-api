@@ -14,12 +14,12 @@ type Output = void;
 export class DeleteMealUseCase implements UseCase<Input, Output> {
   constructor(private mealsRepository: MealsRepository) {}
   async execute({ mealId, userId }: Input): Promise<void> {
-    const meal: Meal = await this.mealsRepository.getMealById(mealId);
-    if (meal.userId !== userId) {
-      throw new NotAllowedError();
-    }
+    const meal: Meal | null = await this.mealsRepository.getMealById(mealId);
     if (!meal) {
       throw new NotFoundError();
+    }
+    if (meal.userId !== userId) {
+      throw new NotAllowedError();
     }
 
     if (meal.id) await this.mealsRepository.deleteMeal(meal.id);

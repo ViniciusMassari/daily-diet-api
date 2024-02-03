@@ -36,7 +36,7 @@ export class InMemoryMealRepository implements MealsRepository {
     return meals;
   }
   async deleteMeal(mealId: string): Promise<void> {
-    this.items = this.items.filter((item) => item.id === mealId);
+    this.items = this.items.filter((item) => item.id !== mealId);
     return;
   }
 }
