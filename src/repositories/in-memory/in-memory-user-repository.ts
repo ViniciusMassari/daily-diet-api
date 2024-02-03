@@ -23,9 +23,9 @@ export class InMemoryUserRepository implements UserRepository {
   items: Array<User> = [];
   async createUser(props: User): Promise<User> {
     const user = {
-      id: props.id ?? randomUUID(),
-      createdAt: props.createdAt ?? new Date(),
       ...props,
+      id: randomUUID(),
+      createdAt: props.createdAt ?? new Date(),
     };
     this.items.push(user);
     return user;
@@ -59,12 +59,13 @@ export class InMemoryUserRepository implements UserRepository {
     return user;
   }
   async metrics(userId: string): Promise<Metrics | undefined> {
-    const user = this.items.filter((user) => user.id === userId);
-    const totalRegisteredMeals = user[0].meals?.length;
-    const nonInDietMeals = user[0].meals?.filter(
+    const user = this.items.find((user) => user.id === userId);
+    if (!user) return;
+    const totalRegisteredMeals = user.meals?.length;
+    const nonInDietMeals = user.meals?.filter(
       (meal) => meal.isInDiet === false
     ).length;
-    const inDietMeals = user[0].meals?.filter(
+    const inDietMeals = user.meals?.filter(
       (meal) => meal.isInDiet === true
     ).length;
     if (totalRegisteredMeals && inDietMeals && nonInDietMeals)
