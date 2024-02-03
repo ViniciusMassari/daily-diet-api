@@ -1,19 +1,13 @@
 import { randomUUID } from 'crypto';
 import { MealsRepository } from '../meals-repository';
 
-interface Meal {
+export interface Meal {
   id?: string;
   name: string;
   description: string;
   isInDiet: boolean;
   createdAt?: Date;
   userId: string;
-}
-
-interface Metrics {
-  inDietMeals: number;
-  nonInDietMeals: number;
-  totalRegisteredMeals: number;
 }
 
 export class InMemoryMealRepository implements MealsRepository {
@@ -45,5 +39,4 @@ export class InMemoryMealRepository implements MealsRepository {
     this.items = this.items.filter((item) => item.id === mealId);
     return;
   }
-
 }

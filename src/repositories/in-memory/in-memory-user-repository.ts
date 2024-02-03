@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 import { UserRepository } from '../user-repository';
-import { Metrics } from '../prisma/prisma-users-repository';
+import { Meal } from './in-memory-meal-repository';
 
 interface User {
   id?: string;
@@ -11,13 +11,15 @@ interface User {
   inDietSequence: number;
   bestInDietSequence: number;
   createdAt?: Date;
+  meals?: Meal[];
+}
+interface Metrics {
+  inDietMeals: number;
+  nonInDietMeals: number;
+  totalRegisteredMeals: number;
 }
 
 export class InMemoryUserRepository implements UserRepository {
-  metrics(userId: string): Promise<Metrics> {
-    throw new Error('Method not implemented.');
-  }
-
   items: Array<User> = [];
   async createUser(props: User): Promise<void> {
     const user = {
@@ -53,5 +55,18 @@ export class InMemoryUserRepository implements UserRepository {
     }
     user.inDietSequence = user.bestInDietSequence++;
     return user;
+  }
+  async metrics(userId: string): Promise<Metrics | undefined> {
+    const user = this.items.filter((user) => user.id === userId);
+    const totalRegisteredMeals = user[0].meals?.length;
+    const nonInDietMeals = user[0].meals?.filter(
+      (meal) => meal.isInDiet === false
+    ).length;
+    const inDietMeals = user[0].meals?.filter(
+      (meal) => meal.isInDiet === true
+    ).length;
+    if (totalRegisteredMeals && inDietMeals && nonInDietMeals)
+      return { totalRegisteredMeals, nonInDietMeals, inDietMeals };
+    return undefined;
   }
 }
