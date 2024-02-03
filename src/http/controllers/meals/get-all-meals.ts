@@ -9,11 +9,13 @@ export async function getAllMeals(req: FastifyRequest, rep: FastifyReply) {
     userId: z.string().uuid(),
   });
   const { userId } = getAllMealsParamsSchema.parse(req.params);
+  if (userId !== req.user.sub) {
+    rep.status(403).send({ message: 'You are not allowed to see that info' });
+  }
   try {
     const getAllMealsUseCase = makeGetAllMealsUseCase();
     const meals = await getAllMealsUseCase.execute({
       userId,
-      loggedUserId: req.user.sub,
     });
     rep.status(200).send({ meals });
   } catch (error) {
