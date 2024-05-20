@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -20,8 +17,8 @@ model User {
   bestInDietSequence Int?     @default(0) @map("best_in_diet_sequence")
   createdAt          DateTime @default(now()) @map("created_At")
   updatedAt          DateTime @updatedAt @map("updated_At")
-
-  meals Meal[]
+  profilePicture     Bytes?   @map("profile_picture")
+  meals              Meal[]
 }
 
 model Meal {
@@ -31,7 +28,7 @@ model Meal {
   isInDiet    Boolean  @map("is_in_diet")
   createdAt   DateTime @default(now()) @map("created_At")
   updated_At  DateTime @updatedAt @map("updated_At")
-
-  User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String? @map("user_id")
+  userId      String?  @map("user_id")
+  imageUrl    Bytes?   @map("image_url")
+  User        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

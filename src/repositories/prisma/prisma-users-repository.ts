@@ -9,9 +9,12 @@ export interface Metrics {
   totalRegisteredMeals: number;
 }
 
+
 export class PrismaUserRepository implements UserRepository {
+
   async createUser(props: Prisma.UserCreateInput): Promise<User> {
     const user = await prisma.user.create({ data: { ...props } });
+    
     return user;
   }
 
@@ -68,6 +71,7 @@ export class PrismaUserRepository implements UserRepository {
 
   async findByEmail(email: string): Promise<User | null> {
     const user = await prisma.user.findUnique({ where: { email } });
+    
     return user;
   }
 
@@ -86,5 +90,20 @@ export class PrismaUserRepository implements UserRepository {
     const totalRegisteredMeals = user?.meals.length;
 
     return { inDietMeals, nonInDietMeals, totalRegisteredMeals };
+  }
+
+    async updateProfilePhoto(imageBuffer: Buffer ,userId:string) {
+    const {id} = await prisma.user.update({
+      where:{
+        id: userId,
+      },
+      data:{
+        profilePicture: imageBuffer
+      }
+    })
+
+
+  return id ;
+
   }
 }

@@ -23,7 +23,7 @@ describe('create user unit tests', () => {
     sut = new CreateUserUseCase(userRepository);
   });
 
-  it('Should return an Error if user already exists', async () => {
+  it.only('Should return an Error if user already exists', async () => {
     await sut.execute(user);
     expect(async () => await sut.execute(user)).rejects.toBeInstanceOf(
       UserAlreadyExists

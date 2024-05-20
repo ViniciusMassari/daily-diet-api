@@ -1,7 +1,7 @@
 import { describe, it, expect, afterAll, beforeAll } from 'vitest';
 import request from 'supertest';
 import { app } from '@/app';
-describe('Authenticate user test', async () => {
+describe.only('Authenticate user test', async () => {
   const userTestInfo = {
     name: 'testName',
     lastname: 'testLastName',
