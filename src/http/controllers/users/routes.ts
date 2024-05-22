@@ -5,7 +5,7 @@ import { authenticate } from './authenticate';
 import { deleteUser } from './delete-user';
 import { verifyJwt } from '@/http/middlewares/verify-jwt';
 import { metrics } from './metrics';
-import { updateProfilePhotos } from './updateProfilePhoto';
+import { updateProfilePhotos } from './update-profile-photo';
 
 export async function usersRoutes(app: FastifyInstance) {
   app.delete('/delete-profile/:id', { onRequest: [verifyJwt] }, deleteUser);
