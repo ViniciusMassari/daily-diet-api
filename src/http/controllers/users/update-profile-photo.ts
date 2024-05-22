@@ -3,8 +3,7 @@ import { z } from 'zod';
 import {makeUpdateProfilePhoto} from '@/use-cases/factories/make-update-profile-photo'
 import { UnableToUploadImage } from '@/use-cases/errors/UnableToUploadFile';
 import { InvalidData } from '@/use-cases/errors/InvalidData';
-import { fileTypeFromStream } from 'file-type';
-
+import verifyImageType from '@/utils/verifyImageType';
 
 const profilePhotoParamsSchema = z.object({
   userId: z.string().uuid(),
@@ -13,17 +12,19 @@ const profilePhotoParamsSchema = z.object({
 let imageData:Buffer;
 export async function updateProfilePhotos(req:FastifyRequest, rep: FastifyReply){
   const part = await req.file();
+
   const {userId} = profilePhotoParamsSchema.parse(req.params)
   if(userId !== req.user.sub)
     rep.status(403).send({ message: 'Not allowed' });
   
   if(part !== undefined && part.file !== undefined ){
-    const image = await fileTypeFromStream(part.file)
+    const isAcceptedImage = await verifyImageType(part)
+    if(!isAcceptedImage){
+      rep.status(403).send({ message: 'Only JPEG and JPG images allowed' });
+    }
     const imageBuffer:Buffer =  part.file.read()
     imageData = Buffer.from(imageBuffer)
   } 
-
-
 
   try {
     const updateProfilePhoto = makeUpdateProfilePhoto();

@@ -33,7 +33,7 @@ describe('Create an user test', async () => {
       password: userTestInfo.password,
     });
     token = authUser.body.token;
-    const imagePath = path.join(__dirname, './cat.png');
+    const imagePath = path.join(__dirname, './cat.jpg');
     const response = await request(app.server).patch(`/user/profile-photo/${id}`).set('Authorization', `Bearer ${token}`).send().attach('file',imagePath)
 
     expect(response.status).toBe(200);
