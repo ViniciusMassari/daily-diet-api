@@ -20,6 +20,9 @@ interface Metrics {
 }
 
 export class InMemoryUserRepository implements UserRepository {
+  updateProfilePhoto(imageBuffer: Buffer, userId: string): Promise<string | null> {
+    throw new Error('Method not implemented.');
+  }
   items: Array<User> = [];
   async createUser(props: User): Promise<User> {
     const user = {

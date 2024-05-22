@@ -23,6 +23,7 @@ export class CreateMealUseCase implements UseCase<Input, Output> {
     const { name, isInDiet, description, userId } = props;
     const user = await this.usersRepository.findById(userId);
     if (!user) throw new NotFoundError();
+    
     const updatedUser: User =
       await this.usersRepository.updateUserInDietSequence(userId, isInDiet);
 

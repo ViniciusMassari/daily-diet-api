@@ -3,6 +3,8 @@ import { makeCreateUserUseCase } from '@/use-cases/factories/make-create-user-us
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
+
+
 const createUserBodySchema = z.object({
   email: z.string().email(),
   name: z.string(),
@@ -16,6 +18,7 @@ export async function createUser(req: FastifyRequest, rep: FastifyReply) {
   const { email, lastname, name, password } = createUserBodySchema.parse(
     req.body
   );
+
 
   try {
     const createUserCase = makeCreateUserUseCase();

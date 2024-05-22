@@ -1,9 +1,9 @@
-import { PrismaUserRepository } from '@/repositories/prisma/prisma-users-repository';
 import { UseCase } from '../use-case';
 import { InvalidData } from '../errors/InvalidData';
 import { compare } from 'bcryptjs';
 import { User } from '@prisma/client';
 import { UserRepository } from '@/repositories/user-repository';
+import { NotFoundError } from '../errors/NotFound';
 
 interface Input {
   email: string;
@@ -18,7 +18,10 @@ export class AuthenticateUseCase implements UseCase<Input, Output> {
   constructor(private usersRepository: UserRepository) {}
   async execute(props: Input): Promise<Output> {
     const { email, password } = props;
+    
     const user = await this.usersRepository.findByEmail(email);
+ 
+    
     if (!user) {
       throw new NotFoundError();
     }
@@ -26,7 +29,7 @@ export class AuthenticateUseCase implements UseCase<Input, Output> {
     if (!isSamePassword) {
       throw new InvalidData();
     }
-
+    
     return { user };
   }
 }

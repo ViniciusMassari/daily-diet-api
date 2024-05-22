@@ -10,6 +10,9 @@ export async function createMeal(req: FastifyRequest, rep: FastifyReply) {
     isInDiet: z.boolean(),
   });
 
+  
+  
+
   const { name, isInDiet, description } = createMealBodySchema.parse(req.body);
 
   try {
@@ -21,6 +24,7 @@ export async function createMeal(req: FastifyRequest, rep: FastifyReply) {
       userId: req.user.sub,
     });
     rep.status(201).send(meal);
+    rep.status(201).send();
   } catch (error) {
     if (error instanceof NotFoundError) {
       rep.status(404).send({ message: error.message });

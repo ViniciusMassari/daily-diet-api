@@ -1,4 +1,3 @@
-import { NotAllowedError } from '@/use-cases/errors/NotAllowedError';
 import { NotFoundError } from '@/use-cases/errors/NotFound';
 import { makeMetricsUseCase } from '@/use-cases/factories/make-metrics-usecase';
 import { FastifyReply, FastifyRequest } from 'fastify';

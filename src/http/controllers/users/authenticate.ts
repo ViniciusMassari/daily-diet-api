@@ -9,11 +9,15 @@ export async function authenticate(req: FastifyRequest, rep: FastifyReply) {
     email: z.string().email(),
     password: z.string(),
   });
-
+  
   const { email, password } = authenticateBodySchema.parse(req.body);
   try {
+  
     const authenticateUserUseCase = makeAuthenticateUserUsecase();
     const { user } = await authenticateUserUseCase.execute({ email, password });
+  
+    
+    
     const token = await rep.jwtSign(
       {
         name: user.name,
@@ -24,6 +28,7 @@ export async function authenticate(req: FastifyRequest, rep: FastifyReply) {
         },
       }
     );
+    console.log('chegou');
 
     const refreshToken = await rep.jwtSign(
       {},
@@ -34,7 +39,8 @@ export async function authenticate(req: FastifyRequest, rep: FastifyReply) {
         },
       }
     );
-
+  
+    
     rep
       .status(200)
       .setCookie('refreshToken', refreshToken, {
