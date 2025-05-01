@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 6s
+
+scrape_configs:
+  - job_name: 'daily-diet-api'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['host.docker.internal:3333']
+        labels:
+          application: 'daily-diet-api'

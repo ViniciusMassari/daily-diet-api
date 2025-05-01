@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   daily-diet-api:
     image: bitnami/postgresql
@@ -9,4 +7,25 @@ services:
       - POSTGRESQL_USERNAME=docker
       - POSTGRESQL_PASSWORD=docker
       - POSTGRESQL_DATABASE=dailyDiet
-  
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    networks:
+      - gv-network
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - gv-network
+    ports:
+      - 9090:9090
+networks:
+  gv-network:
+    driver: bridge
+volumes:
+  prometheus_data:
+  grafana_data:
