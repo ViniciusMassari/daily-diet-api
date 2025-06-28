@@ -13,5 +13,9 @@ export async function usersRoutes(app: FastifyInstance) {
   app.patch('/token/refresh', refresh);
   app.post('/authenticate', authenticate);
   app.get('/metrics/:userId', { onRequest: verifyJwt }, metrics);
-  app.patch('/profile-photo/:userId',{ onRequest: verifyJwt },updateProfilePhotos)
+  app.patch(
+    '/profile-photo/:userId',
+    { onRequest: verifyJwt },
+    updateProfilePhotos
+  );
 }

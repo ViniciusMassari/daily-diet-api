@@ -1,12 +1,14 @@
 # Daily Diet API
+
 ## Api para controle de refeições dentro ou não de sua dieta
-* [Sobre](#Sobre)
-* [Instalação](#instalacao)
-* [Como usar](#como-usar)
-    * [Pre Requisitos](#pre-requisitos)
-* [Testes](#testes)
-* [Tecnologias](#tecnologias)
-* [Autor](#autor)
+
+- [Sobre](#Sobre)
+- [Instalação](#instalacao)
+- [Como usar](#como-usar)
+  - [Pre Requisitos](#pre-requisitos)
+- [Testes](#testes)
+- [Tecnologias](#tecnologias)
+- [Autor](#autor)
 
 <h4 align="center"> 
     👍🏻 Finalizado !
@@ -16,12 +18,12 @@
 
 - [x] Cadastro de usuário
 - [x] Registro de Refeição
-- [X] Registro de sequência de refeições na dieta
-- [X] Armazenamento de melhor sequência de refeições dentro da dieta
-- [X] Exclusão de usuário
-- [X] Exclusão de refeição
-- [X] Alteração de dados da refeição
-- [X] Retorno de métricas de usuário
+- [x] Registro de sequência de refeições na dieta
+- [x] Armazenamento de melhor sequência de refeições dentro da dieta
+- [x] Exclusão de usuário
+- [x] Exclusão de refeição
+- [x] Alteração de dados da refeição
+- [x] Retorno de métricas de usuário
 
 ### Pré-requisitos
 
@@ -29,6 +31,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), [VSCode](https://code.visualstudio.com/) e [Docker](https://docs.docker.com/manuals/)
 
 ### 🎲 Rodando o Back End (servidor)
+
 ```bash
 # Clone este repositório
 $ git clone <https://github.com/ViniciusMassari/daily-diet-api.git>
@@ -37,6 +40,9 @@ $ cd daily-diet-api
 
 # Instale as dependências
 $ pnpm install
+
+# Gere o client do prisma
+npx prisma generate
 
 # Execute a aplicação em modo de desenvolvimento
 $ pnpm run start:dev
@@ -59,14 +65,17 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Vitest](https://vitest.dev)
 
 ### Testes
-```bash 
+
+```bash
 # para rodar os testes E2E (Após subir o container docker)
 $ pnpm run test:e2e
 
 # para rodar os testes unitários
 $ pnpm run test
 ```
+
 ### Autor
+
 ---
 
 <p href="https://blog.rocketseat.com.br/author/thiago/">
@@ -76,5 +85,5 @@ $ pnpm run test
 
 Feito com ❤️ por Vinícius Massari 👋🏽 Entre em contato!
 
- [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/viniciusmassari/) 
+[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/viniciusmassari/)
 [![Outlook](https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white)](mailto:ViniMassari123@hotmail.com)
